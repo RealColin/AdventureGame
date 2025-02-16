@@ -24,6 +24,8 @@ public class Main extends PApplet {
         greenDragon = new Dragon(700, 300, loadImage("green_dragon.png"));
     }
 
+    // test comment
+
     @Override
     public void draw() {
         // temp collision resolution until i make proper hitbox system
