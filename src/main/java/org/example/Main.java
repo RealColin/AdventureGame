@@ -20,7 +20,11 @@ public class Main extends PApplet {
     @Override
     public void setup() {
         windowResizable(true);
-        player = new Player(50, 50, color(255, 255, 0));
+
+        // have to alter this for proper room setup
+        Room main = new Room(new Wall[0]);
+
+        player = new Player(50, 50, 40, 5, color(255, 255, 0), main);
         greenDragon = new Dragon(700, 300, loadImage("green_dragon.png"));
     }
 
@@ -28,6 +32,10 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
+        handleInput();
+
+
+
         // temp collision resolution until i make proper hitbox system
 
         boolean collision = isCollided(player, greenDragon);
@@ -56,6 +64,7 @@ public class Main extends PApplet {
                 player.move(greenDragon.x - (player.x + 40), 0);
             }
         }
+
 
         // then draw stuff
         background(170, 170, 170);
@@ -98,6 +107,17 @@ public class Main extends PApplet {
     @Override
     public void keyReleased() {
         keysPressed.remove(key);
+    }
+
+    private void handleInput() {
+        for (var key : keysPressed) {
+            switch (key) {
+                case 'w' -> player.move(Direction.UP);
+                case 'a' -> player.move(Direction.LEFT);
+                case 's' -> player.move(Direction.DOWN);
+                case 'd' -> player.move(Direction.RIGHT);
+            }
+        }
     }
 
     private boolean isCollided(Player player, Dragon dragon) {
