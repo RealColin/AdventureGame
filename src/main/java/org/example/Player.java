@@ -17,11 +17,7 @@ public class Player {
         this.currentRoom = currentRoom;
     }
 
-    public void move(int amountX, int amountY) {
-        this.x += amountX;
-        this.y += amountY;
-    }
-
+    // TODO maybe make this a bit cleaner?
     public void move(Direction dir) {
         int tx = x, ty = y;
 
@@ -35,8 +31,17 @@ public class Player {
         for (var wall : currentRoom.walls) {
             boolean col = wall.isInside(tx, ty, size, size);
 
-            // if col is true then i have to move tx or ty back in the direction it came from in the amount necessary to keep the player outside the wall
+            if (!col) continue;
 
+            switch (dir) {
+                case UP -> ty = wall.yPos() + wall.height();
+                case DOWN -> ty = wall.yPos() - size;
+                case LEFT -> tx = wall.xPos() + wall.width();
+                case RIGHT -> tx = wall.xPos() - size;
+            }
         }
+
+        x = tx;
+        y = ty;
     }
 }
