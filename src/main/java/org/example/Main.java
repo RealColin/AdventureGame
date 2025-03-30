@@ -34,33 +34,30 @@ public class Main extends PApplet {
     public void draw() {
         handleInput();
 
-
-
-        // temp collision resolution until i make proper hitbox system
-
+        // TODO remove the collision handling code in this method
         boolean collision = isCollided(player, greenDragon);
         // handle input first
         if (keysPressed.contains('w')) {
             player.move(0, -7);
-            if (collision && (player.x < greenDragon.x + greenDragon.hitboxWidth) && (player.x + 40 > greenDragon.x) && player.y > greenDragon.y) {
+            if (isCollided(player, greenDragon) && (player.x < greenDragon.x + greenDragon.hitboxWidth) && (player.x + 40 > greenDragon.x) && player.y > greenDragon.y) {
                 player.move(0, (greenDragon.y + greenDragon.hitboxHeight) - player.y);
             }
         }
         if (keysPressed.contains('s')) {
             player.move(0, 7);
-            if (collision && (player.x < greenDragon.x + greenDragon.hitboxWidth) && (player.x + 40 > greenDragon.x) && player.y < greenDragon.y) {
+            if (isCollided(player, greenDragon) && (player.x < greenDragon.x + greenDragon.hitboxWidth) && (player.x + 40 > greenDragon.x) && player.y < greenDragon.y) {
                 player.move(0, greenDragon.y - (player.y + 40));
             }
         }
         if (keysPressed.contains('a')) {
             player.move(-7, 0);
-            if (collision && (player.y < greenDragon.y + greenDragon.hitboxHeight && player.y + 40 > greenDragon.y) && player.x > greenDragon.x) {
+            if (isCollided(player, greenDragon) && (player.y < greenDragon.y + greenDragon.hitboxHeight && player.y + 40 > greenDragon.y) && player.x > greenDragon.x) {
                 player.move((greenDragon.x + greenDragon.hitboxWidth) - player.x, 0);
             }
         }
         if (keysPressed.contains('d')) {
             player.move(7, 0);
-            if (collision && (player.y < greenDragon.y + greenDragon.hitboxHeight && player.y + 40 > greenDragon.y) && player.x < greenDragon.x) {
+            if (isCollided(player, greenDragon) && (player.y < greenDragon.y + greenDragon.hitboxHeight && player.y + 40 > greenDragon.y) && player.x < greenDragon.x) {
                 player.move(greenDragon.x - (player.x + 40), 0);
             }
         }
@@ -81,6 +78,7 @@ public class Main extends PApplet {
         rect(greenDragon.x, greenDragon.y, greenDragon.hitboxWidth, greenDragon.hitboxHeight);
     }
 
+    // TODO remove the parameter from this function
     private void drawPlayer(boolean collided) {
         fill(player.color);
 
