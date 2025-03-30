@@ -67,7 +67,7 @@ public class Main extends PApplet {
         background(170, 170, 170);
 
         // player and player hitbox
-        drawPlayer(collision);
+        drawPlayer();
         drawPlayerHitbox();
 
         // dragon and dragon hitbox
@@ -78,14 +78,8 @@ public class Main extends PApplet {
         rect(greenDragon.x, greenDragon.y, greenDragon.hitboxWidth, greenDragon.hitboxHeight);
     }
 
-    // TODO remove the parameter from this function
-    private void drawPlayer(boolean collided) {
+    private void drawPlayer() {
         fill(player.color);
-
-        if (collided) {
-            fill(255, 0, 0);
-        }
-
         noStroke();
         rect(player.x, player.y, 40, 40);
     }
