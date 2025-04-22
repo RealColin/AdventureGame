@@ -7,10 +7,10 @@ public class Room {
     public Room down;
     public int color;
 
-    public final Structure[] structures;
+    public final Wall[] walls;
 
     public Room(Wall[] walls, int color) {
-        this.structures = walls;
+        this.walls = walls;
         this.color = color;
     }
 }

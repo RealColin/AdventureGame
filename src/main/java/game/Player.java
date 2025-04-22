@@ -32,20 +32,17 @@ public class Player {
             case DOWN -> ty += speed;
         }
 
-        for (var struct : currentRoom.structures) {
-            boolean col = struct.isInside(tx, ty, size, size);
+        for (var wall : currentRoom.walls) {
+            boolean col = wall.isInside(tx, ty, size, size);
 
             if (!col) continue;
 
-            if (struct instanceof Wall wall) {
-                switch (dir) {
-                    case UP -> ty = wall.yPos() + wall.height();
-                    case DOWN -> ty = wall.yPos() - size;
-                    case LEFT -> tx = wall.xPos() + wall.width();
-                    case RIGHT -> tx = wall.xPos() - size;
-                }
-            } else {
-                // TODO it's a path, move to the next room
+
+            switch (dir) {
+                case UP -> ty = wall.yPos() + wall.height();
+                case DOWN -> ty = wall.yPos() - size;
+                case LEFT -> tx = wall.xPos() + wall.width();
+                case RIGHT -> tx = wall.xPos() - size;
             }
         }
 
