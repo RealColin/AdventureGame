@@ -37,6 +37,10 @@ public class Player {
 
             if (!col) continue;
 
+            if (wall.nextRoom() != null) {
+                // TODO move player to next room here
+                continue;
+            }
 
             switch (dir) {
                 case UP -> ty = wall.yPos() + wall.height();
