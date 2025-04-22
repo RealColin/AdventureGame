@@ -1,4 +1,4 @@
-package org.example;
+package game;
 import processing.core.*;
 
 public class Dragon {

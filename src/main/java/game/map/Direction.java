@@ -1,4 +1,4 @@
-package org.example;
+package game.map;
 
 public enum Direction {
     UP,

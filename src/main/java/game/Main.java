@@ -1,4 +1,5 @@
-package org.example;
+package game;
+import game.map.*;
 import processing.core.PApplet;
 
 import java.util.HashSet;

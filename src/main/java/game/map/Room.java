@@ -1,4 +1,4 @@
-package org.example;
+package game.map;
 
 public class Room {
     public Room left;

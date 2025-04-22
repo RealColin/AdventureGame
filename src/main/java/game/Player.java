@@ -1,4 +1,7 @@
-package org.example;
+package game;
+
+import game.map.Direction;
+import game.map.Room;
 
 public class Player {
     public int x;
