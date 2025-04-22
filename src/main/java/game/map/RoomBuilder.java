@@ -9,6 +9,8 @@ public class RoomBuilder {
 
     private final Wall TOP = new Wall(0, 0, 1280, 40, null);
     private final Wall BOTTOM = new Wall(0, 680, 1280, 40, null);
+    private final Wall LEFT = new Wall(0, 40, 10, 640, null);
+    private final Wall RIGHT = new Wall(1270, 40, 10, 640, null);
 
     public RoomBuilder() {
         rooms = new ArrayList<>();
@@ -17,6 +19,18 @@ public class RoomBuilder {
 
     public Room getStartRoom() {
         return rooms.getFirst();
+    }
+
+    private void createLevelOneRooms() {
+        // TODO implement this
+    }
+
+    private void createLevelTwoRooms() {
+        // TODO implement this
+    }
+
+    private void createLevelThreeRooms() {
+        // TODO implement this
     }
 
     private void createRooms() {
@@ -58,7 +72,7 @@ public class RoomBuilder {
 
     private Wall[] createLeftHallway() {
         var walls = new Wall[] {
-                new Wall(0, 40, 10, 640, null),
+                LEFT,
                 rightEntry(rooms.get(0)),
                 BOTTOM
         };
@@ -69,7 +83,7 @@ public class RoomBuilder {
         var walls = new Wall[] {
                 TOP,
                 leftEntry(rooms.get(0)),
-                new Wall(1270, 40, 10, 640, null)
+                RIGHT
         };
         return combine(walls, bottomEntry(rooms.get(6)));
     }
@@ -89,8 +103,8 @@ public class RoomBuilder {
 
     private Wall[] createYellowCastleRoom() {
         var walls = new Wall[] {
-                new Wall(0, 40, 10, 640, null),
-                new Wall(1270, 40, 10, 640, null),
+                LEFT,
+                RIGHT,
                 TOP
         };
         return combine(walls, bottomEntry(rooms.get(3)));
