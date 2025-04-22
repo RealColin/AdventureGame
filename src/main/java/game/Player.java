@@ -32,7 +32,7 @@ public class Player {
             case DOWN -> ty += speed;
         }
 
-        for (var wall : currentRoom.walls) {
+        for (var wall : currentRoom.walls()) {
             boolean col = wall.isInside(tx, ty, size, size);
 
             if (!col) continue;

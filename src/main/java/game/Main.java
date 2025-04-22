@@ -23,18 +23,8 @@ public class Main extends PApplet {
     public void setup() {
         windowResizable(true);
 
-        Room secondRoom = new Room(new Wall[]{}, color(255, 255, 255));
-
-        // have to alter this for proper room setup
-        Wall topL = new Wall(0, 0, 565, 40, null);
-        Wall up = new Wall(565, 0, 150, 40, secondRoom);
-        Wall topR = new Wall(715, 0, 565, 40, null);
-        Wall bottom = new Wall(0, 680, 1280, 40, null);
-        Wall left = new Wall(0, 40, 10, 640, secondRoom);
-        Wall right = new Wall(1270, 40, 10, 640, secondRoom);
-
-        Room main = new Room(new Wall[]{topL, topR, bottom, left, right}, color(0, 255, 0));
-
+        RoomBuilder builder = new RoomBuilder();
+        Room main = builder.getStartRoom();
 
         player = new Player(50, 50, 40, 7, color(255, 255, 0), main);
         greenDragon = new Dragon(700, 300, loadImage("green_dragon.png"));
@@ -62,7 +52,7 @@ public class Main extends PApplet {
     private void drawRoom() {
         var room = player.currentRoom;
 
-        for (var wall : room.walls) {
+        for (var wall : room.walls()) {
             if (wall.nextRoom() != null)
                 continue; // don't draw the wall if it's actually a path
 
