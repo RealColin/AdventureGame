@@ -32,8 +32,6 @@ public class Key implements Item{
 
     @Override
     public void onBroughtToCastle(Castle castle) {
-        if (castle == Castle.YELLOW) {
-            // TODO bring up "Game Won" screen
-        }
+        // Nothing gets done when Key is brought into Castle
     }
 }
