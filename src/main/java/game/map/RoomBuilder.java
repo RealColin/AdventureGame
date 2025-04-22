@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class RoomBuilder {
     private final ArrayList<Room> rooms;
 
+    private final Wall TOP = new Wall(0, 0, 1280, 40, null);
+    private final Wall BOTTOM = new Wall(0, 680, 1280, 40, null);
+
     public RoomBuilder() {
         rooms = new ArrayList<>();
         createRooms();
@@ -18,7 +21,7 @@ public class RoomBuilder {
 
     private void createRooms() {
         Room start = new Room(null, Util.rgbToInt(0, 255, 0));
-        Room leftHallway = new Room(null, Util.rgbToInt(200, 255, 0));
+        Room leftHallway = new Room(null, Util.rgbToInt(100, 255, 0));
         Room rightHallWay = new Room(null, Util.rgbToInt(0, 255, 100));
         Room yellowCastleEntry = new Room(null, Util.rgbToInt(255, 255, 0));
         Room yellowCastleRoom = new Room(null, Util.rgbToInt(255, 255 ,0));
@@ -36,38 +39,101 @@ public class RoomBuilder {
         start.updateWalls(createStartRoom());
         leftHallway.updateWalls(createLeftHallway());
         rightHallWay.updateWalls(createRightHallway());
+        yellowCastleEntry.updateWalls(createYellowCastleEntry());
+        yellowCastleRoom.updateWalls(createYellowCastleRoom());
     }
 
-    private Wall[] createStartRoom() {
-        Wall TL = new Wall(0, 0, 565, 40, null);
-        Wall TM = new Wall(565, 0, 150, 40, rooms.get(3));
-        Wall TR = new Wall(715, 0, 565, 40, null);
-        Wall B = new Wall(0, 680, 1280, 40, null);
-        Wall L = new Wall(0, 40, 10, 640, rooms.get(1));
-        Wall R = new Wall(1270, 40, 10, 640, rooms.get(2));
+    /*
+        Room building functions
+     */
 
-        return new Wall[]{TL, TM, TR, B, L, R};
+    private Wall[] createStartRoom() {
+        var walls = new Wall[] {
+                leftEntry(rooms.get(1)),
+                rightEntry(rooms.get(2)),
+                BOTTOM
+        };
+        return combine(walls, topEntry(rooms.get(3)));
     }
 
     private Wall[] createLeftHallway() {
-        Wall TL = new Wall(0, 0, 565, 40, null);
-        Wall TM = new Wall(565, 0, 150, 40, rooms.get(5));
-        Wall TR = new Wall(715, 0, 565, 40, null);
-        Wall B = new Wall(0, 680, 1280, 40, null);
-        Wall L = new Wall(0, 40, 10, 640, null);
-        Wall R = new Wall(1270, 40, 10, 640, rooms.get(0));
-
-        return new Wall[]{TL, TM, TR, B, L, R};
+        var walls = new Wall[] {
+                new Wall(0, 40, 10, 640, null),
+                rightEntry(rooms.get(0)),
+                BOTTOM
+        };
+        return combine(walls, topEntry(rooms.get(5)));
     }
 
     private Wall[] createRightHallway() {
-        Wall T = new Wall(0, 0, 1280, 40, null);
+        var walls = new Wall[] {
+                TOP,
+                leftEntry(rooms.get(0)),
+                new Wall(1270, 40, 10, 640, null)
+        };
+        return combine(walls, bottomEntry(rooms.get(6)));
+    }
+
+    private Wall[] createYellowCastleEntry() {
+        Wall TL = new Wall(0, 0, 565, 40, null);
+        Wall TM = new Wall(565, 0, 150, 40, rooms.get(4));
+        Wall TR = new Wall(715, 0, 565, 40, null);
         Wall BL = new Wall(0, 680, 565, 40, null);
-        Wall BM = new Wall(565, 680, 150, 40, rooms.get(6));
+        Wall BM = new Wall(565, 680, 150, 40, rooms.get(0));
         Wall BR = new Wall(715, 680, 565, 40, null);
-        Wall L = new Wall(0, 40, 10, 640, rooms.get(0));
+        Wall L = new Wall(0, 40, 10, 640, null);
         Wall R = new Wall(1270, 40, 10, 640, null);
 
-        return new Wall[]{T, BL, BM, BR, L, R};
+        return new Wall[] {TL, TM, TR, BL, BM, BR, L, R};
+    }
+
+    private Wall[] createYellowCastleRoom() {
+        var walls = new Wall[] {
+                new Wall(0, 40, 10, 640, null),
+                new Wall(1270, 40, 10, 640, null),
+                TOP
+        };
+        return combine(walls, bottomEntry(rooms.get(3)));
+    }
+
+    /*
+        Helper functions
+     */
+
+    private Wall[] createCastle() {
+
+        return new Wall[] {};
+    }
+
+    private Wall[] topEntry(Room room) {
+        Wall TL = new Wall(0, 0, 565, 40, null);
+        Wall TM = new Wall(565, 0, 150, 40, room);
+        Wall TR = new Wall(715, 0, 565, 40, null);
+
+        return new Wall[] {TL, TM, TR};
+    }
+
+    private Wall[] bottomEntry(Room room) {
+        Wall BL = new Wall(0, 680, 565, 40, null);
+        Wall BM = new Wall(565, 680, 150, 40, room);
+        Wall BR = new Wall(715, 680, 565, 40, null);
+
+        return new Wall[] {BL, BM, BR};
+    }
+
+    private Wall leftEntry(Room room) {
+        return new Wall(0, 40, 10, 640, room);
+    }
+
+    private Wall rightEntry(Room room) {
+        return new Wall(1270, 40, 10, 640, room);
+    }
+
+    private Wall[] combine(Wall[] first, Wall[] second) {
+        var ret = new Wall[first.length + second.length];
+        System.arraycopy(first, 0, ret, 0, first.length);
+        System.arraycopy(second, 0, ret, first.length, second.length);
+
+        return ret;
     }
 }

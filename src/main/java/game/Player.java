@@ -2,7 +2,6 @@ package game;
 
 import game.map.Direction;
 import game.map.Room;
-import game.map.Wall;
 
 public class Player {
     public int x;
@@ -21,7 +20,7 @@ public class Player {
         this.currentRoom = currentRoom;
     }
 
-    // TODO maybe make this a bit cleaner?
+    // TODO definitely make this cleaner
     public void move(Direction dir) {
         int tx = x, ty = y;
 
@@ -38,7 +37,13 @@ public class Player {
             if (!col) continue;
 
             if (wall.nextRoom() != null) {
-                // TODO move player to next room here
+                this.currentRoom = wall.nextRoom();
+                switch (dir) {
+                    case UP -> ty = 600;
+                    case DOWN -> ty = 80;
+                    case LEFT -> tx = 1200;
+                    case RIGHT -> tx = 80;
+                }
                 continue;
             }
 
