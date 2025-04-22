@@ -24,14 +24,14 @@ public class Main extends PApplet {
         windowResizable(true);
 
         // have to alter this for proper room setup
-        Wall topL = new Wall(0, 0, 565, 40, color(0, 255, 0));
-        Wall up = new Wall(565, 0, 150, 40, TRANSPARENT);
-        Wall topR = new Wall(715, 0, 565, 40, color(0, 255, 0));
-        Wall bottom = new Wall(0, 680, 1280, 40, color(0, 255, 0));
-        Wall left = new Wall(0, 40, 10, 640, color(255, 255, 255));
-        Wall right = new Wall(1270, 40, 10, 640, color(255, 255, 255));
+        Wall topL = new Wall(0, 0, 565, 40);
+        // Wall up = new Wall(565, 0, 150, 40);
+        Wall topR = new Wall(715, 0, 565, 40);
+        Wall bottom = new Wall(0, 680, 1280, 40);
+        Wall left = new Wall(0, 40, 10, 640);
+        Wall right = new Wall(1270, 40, 10, 640);
 
-        Room main = new Room(new Wall[]{topL, up, topR, bottom, left, right});
+        Room main = new Room(new Wall[]{topL, topR, bottom, left, right}, color(0, 255, 0));
 
 
         player = new Player(50, 50, 40, 7, color(255, 255, 0), main);
@@ -61,10 +61,10 @@ public class Main extends PApplet {
         var room = player.currentRoom;
 
         for (var struct : room.structures) {
-            if (!(struct instanceof Wall(int x, int y, int w, int h, int color)))
+            if (!(struct instanceof Wall(int x, int y, int w, int h)))
                 continue;
 
-            fill(color);
+            fill(room.color);
             noStroke();
             rect(x, y, w, h);
         }
