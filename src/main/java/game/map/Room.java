@@ -6,9 +6,9 @@ public class Room {
     public Room up;
     public Room down;
 
-    public final Wall[] walls;
+    public final Structure[] structures;
 
     public Room(Wall[] walls) {
-        this.walls = walls;
+        this.structures = walls;
     }
 }

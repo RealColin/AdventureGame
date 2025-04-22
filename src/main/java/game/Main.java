@@ -60,10 +60,13 @@ public class Main extends PApplet {
     private void drawRoom() {
         var room = player.currentRoom;
 
-        for (var wall : room.walls) {
-            fill(wall.color());
+        for (var struct : room.structures) {
+            if (!(struct instanceof Wall(int x, int y, int w, int h, int color)))
+                continue;
+
+            fill(color);
             noStroke();
-            rect(wall.xPos(), wall.yPos(), wall.width(), wall.height());
+            rect(x, y, w, h);
         }
     }
 

@@ -2,6 +2,7 @@ package game;
 
 import game.map.Direction;
 import game.map.Room;
+import game.map.Wall;
 
 public class Player {
     public int x;
@@ -31,16 +32,20 @@ public class Player {
             case DOWN -> ty += speed;
         }
 
-        for (var wall : currentRoom.walls) {
-            boolean col = wall.isInside(tx, ty, size, size);
+        for (var struct : currentRoom.structures) {
+            boolean col = struct.isInside(tx, ty, size, size);
 
             if (!col) continue;
 
-            switch (dir) {
-                case UP -> ty = wall.yPos() + wall.height();
-                case DOWN -> ty = wall.yPos() - size;
-                case LEFT -> tx = wall.xPos() + wall.width();
-                case RIGHT -> tx = wall.xPos() - size;
+            if (struct instanceof Wall wall) {
+                switch (dir) {
+                    case UP -> ty = wall.yPos() + wall.height();
+                    case DOWN -> ty = wall.yPos() - size;
+                    case LEFT -> tx = wall.xPos() + wall.width();
+                    case RIGHT -> tx = wall.xPos() - size;
+                }
+            } else {
+                // TODO it's a path, move to the next room
             }
         }
 
