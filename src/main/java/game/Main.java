@@ -1,4 +1,6 @@
 package game;
+import game.entity.Dragon;
+import game.entity.Player;
 import game.map.*;
 import processing.core.PApplet;
 import processing.core.PImage;

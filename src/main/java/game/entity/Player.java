@@ -1,4 +1,4 @@
-package game;
+package game.entity;
 
 import game.map.Direction;
 import game.map.Room;

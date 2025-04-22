@@ -1,4 +1,4 @@
-package game;
+package game.entity;
 import processing.core.*;
 
 public class Dragon {
