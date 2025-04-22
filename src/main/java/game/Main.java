@@ -1,6 +1,7 @@
 package game;
 import game.map.*;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.util.HashSet;
 
@@ -9,6 +10,7 @@ public class Main extends PApplet {
     private Dragon greenDragon;
     private final HashSet<Character> keysPressed = new HashSet<>();
     private final int TRANSPARENT = color(255, 255, 255, 0);
+    public static PImage gate;
 
     public static void main(String[] args) {
         PApplet.main(Main.class);
@@ -23,11 +25,15 @@ public class Main extends PApplet {
     public void setup() {
         windowResizable(true);
 
+        // have to do this before RoomBuilder BECAUSE a Gate gets constructed in RoomBuilder and needs gate to be initialized
+        gate = loadImage("gate.png");
+
         RoomBuilder builder = new RoomBuilder();
         Room main = builder.getStartRoom();
 
         player = new Player(50, 50, 40, 7, color(255, 255, 0), main);
         greenDragon = new Dragon(700, 300, loadImage("green_dragon.png"));
+
     }
 
     @Override
