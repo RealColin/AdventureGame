@@ -117,9 +117,47 @@ public class RoomBuilder {
 
     private Wall[] createMazeEntry() {
         var walls = new Wall[] {
-                new Wall(300, 510, 680, 70, null),
-                new Wall(0, 510, 250, 70, null),
-                new Wall(1270, 610, 10, 70, null),
+                // bottom horizontal row
+                new Wall(0, 450, 270, 120, null),
+                new Wall(350, 450, 580, 120, null),
+                new Wall(1010, 450, 270, 120, null),
+
+                // middle horizontal row
+                new Wall(0, 185, 110, 120, null),
+                new Wall(470, 185, 340, 120, null),
+                new Wall(1170, 185, 110, 120, null),
+
+                // top horizontal row
+                new Wall(0, 0, 270, 40, null),
+                new Wall(1010, 0, 270, 40, null),
+                new Wall(590, 0, 100, 40, null),
+
+                // tall vertical row
+                new Wall(210, 40, 60, 410, null),
+                new Wall(350, 0, 60, 450, null),
+                new Wall(870, 0, 60, 450, null),
+                new Wall(1010, 40, 60, 410, null),
+
+                // short vertical row
+                new Wall(470, 0, 60, 185, null),
+                new Wall(750, 0, 60, 185, null)
+
+
+//                // tall vertical row
+//                new Wall(210, 40, 60, 430, null),
+//                new Wall(350, 0, 40, 470, null),
+//                new Wall(890, 0, 40, 470, null),
+//                new Wall(1010, 40, 60, 430, null),
+//
+//                // short vertical row
+//                new Wall(460, 0, 40, 205, null),
+//                new Wall(780, 0, 40, 205, null),
+
+                // other
+//                new Wall(300, 0, 50, 490, null),
+//                new Wall(930, 0, 50, 490, null),
+//                new Wall(400, 330, 480, 80, null),
+//                new Wall(1270, 610, 10, 0, null),
 
         };
 
@@ -139,7 +177,7 @@ public class RoomBuilder {
 
     private Wall[] topEntry(Room room) {
         Wall TL = new Wall(0, 0, 565, 40, null);
-        Wall TM = new Wall(565, 0, 150, 40, room);
+        Wall TM = new Wall(565, 0, 150, 10, room);
         Wall TR = new Wall(715, 0, 565, 40, null);
 
         return new Wall[] {TL, TM, TR};
@@ -147,7 +185,7 @@ public class RoomBuilder {
 
     private Wall[] bottomEntry(Room room) {
         Wall BL = new Wall(0, 680, 565, 40, null);
-        Wall BM = new Wall(565, 680, 150, 40, room);
+        Wall BM = new Wall(565, 710, 150, 10, room);
         Wall BR = new Wall(715, 680, 565, 40, null);
 
         return new Wall[] {BL, BM, BR};
