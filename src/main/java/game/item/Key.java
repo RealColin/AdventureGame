@@ -6,7 +6,7 @@ import game.map.Castle;
 import game.map.Gate;
 import processing.core.PImage;
 
-public class Key implements Item{
+public class Key implements Item {
     public int x;
     public int y;
     public PImage img;

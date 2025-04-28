@@ -9,8 +9,8 @@ public class RoomBuilder {
 
     private final Wall TOP = new Wall(0, 0, 1280, 40, null);
     private final Wall BOTTOM = new Wall(0, 680, 1280, 40, null);
-    private final Wall LEFT = new Wall(0, 40, 10, 640, null);
-    private final Wall RIGHT = new Wall(1270, 40, 10, 640, null);
+    private final Wall LEFT = new Wall(0, 40, 40, 640, null);
+    private final Wall RIGHT = new Wall(1240, 40, 40, 640, null);
 
     public RoomBuilder() {
         rooms = new ArrayList<>();
@@ -39,7 +39,11 @@ public class RoomBuilder {
         Room rightHallWay = new Room(null, Util.rgbToInt(0, 255, 100));
         Room yellowCastleEntry = new Room(null, Util.rgbToInt(255, 255, 0));
         Room yellowCastleRoom = new Room(null, Util.rgbToInt(255, 255 ,0));
-        Room topRoom = new Room(null, Util.rgbToInt(0, 0, 255));
+
+        // blue maze
+        Room mazeEntry = new Room(null, Util.rgbToInt(0, 0, 255));
+
+        //
         Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
 
         rooms.add(0, start);
@@ -47,7 +51,7 @@ public class RoomBuilder {
         rooms.add(2, rightHallWay);
         rooms.add(3, yellowCastleEntry);
         rooms.add(4, yellowCastleRoom);
-        rooms.add(5, topRoom);
+        rooms.add(5, mazeEntry);
         rooms.add(6, bottomRoom);
 
         start.updateWalls(createStartRoom());
@@ -55,6 +59,7 @@ public class RoomBuilder {
         rightHallWay.updateWalls(createRightHallway());
         yellowCastleEntry.updateWalls(createYellowCastleEntry());
         yellowCastleRoom.updateWalls(createYellowCastleRoom());
+        mazeEntry.updateWalls(createMazeEntry());
     }
 
     /*
@@ -108,6 +113,19 @@ public class RoomBuilder {
                 TOP
         };
         return combine(walls, bottomEntry(rooms.get(3)));
+    }
+
+    private Wall[] createMazeEntry() {
+        var walls = new Wall[] {
+                new Wall(300, 510, 680, 70, null),
+                new Wall(0, 510, 250, 70, null),
+                new Wall(1270, 610, 10, 70, null),
+
+        };
+
+        var B = bottomEntry(rooms.get(1));
+
+        return combine(walls, B);
     }
 
     /*
