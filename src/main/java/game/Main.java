@@ -93,6 +93,7 @@ public class Main extends PApplet {
                 case 'a' -> player.move(Direction.LEFT);
                 case 's' -> player.move(Direction.DOWN);
                 case 'd' -> player.move(Direction.RIGHT);
+                case 'c' -> System.out.println(player.x + " " + player.y);
             }
         }
     }

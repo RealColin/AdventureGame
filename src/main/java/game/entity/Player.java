@@ -36,15 +36,18 @@ public class Player {
 
             if (!col) continue;
 
+
             if (wall.nextRoom() != null) {
                 this.currentRoom = wall.nextRoom();
                 switch (dir) {
-                    case UP -> ty = 600;
-                    case DOWN -> ty = 80;
-                    case LEFT -> tx = 1200;
-                    case RIGHT -> tx = 80;
+                    case UP -> ty = 665;
+                    case DOWN -> ty = 15;
+                    case LEFT -> tx = 1225;
+                    case RIGHT -> tx = 15;
                 }
-                continue;
+                x = tx;
+                y = ty;
+                return;
             }
 
             switch (dir) {

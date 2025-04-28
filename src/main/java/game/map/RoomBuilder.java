@@ -42,6 +42,10 @@ public class RoomBuilder {
 
         // blue maze
         Room mazeEntry = new Room(null, Util.rgbToInt(0, 0, 255));
+        Room mazeHallway = new Room(null, Util.rgbToInt(0, 0, 255));
+        Room mazeBigRoom = new Room(null, Util.rgbToInt(0, 0, 255));
+        Room mazeTop = new Room(null, Util.rgbToInt(0, 0, 255));
+        Room mazeExit = new Room(null, Util.rgbToInt(0, 0, 255));
 
         //
         Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
@@ -52,7 +56,11 @@ public class RoomBuilder {
         rooms.add(3, yellowCastleEntry);
         rooms.add(4, yellowCastleRoom);
         rooms.add(5, mazeEntry);
-        rooms.add(6, bottomRoom);
+        rooms.add(6, mazeHallway);
+        rooms.add(7, mazeBigRoom);
+        rooms.add(8, mazeTop);
+        rooms.add(9, mazeExit);
+        rooms.add(10, bottomRoom);
 
         start.updateWalls(createStartRoom());
         leftHallway.updateWalls(createLeftHallway());
@@ -60,6 +68,10 @@ public class RoomBuilder {
         yellowCastleEntry.updateWalls(createYellowCastleEntry());
         yellowCastleRoom.updateWalls(createYellowCastleRoom());
         mazeEntry.updateWalls(createMazeEntry());
+        mazeHallway.updateWalls(createMazeHallway());
+        mazeBigRoom.updateWalls(createMazeBigRoom());
+        mazeTop.updateWalls(createMazeTop());
+        mazeExit.updateWalls(createMazeExit());
     }
 
     /*
@@ -97,13 +109,19 @@ public class RoomBuilder {
         Wall TL = new Wall(0, 0, 565, 40, null);
         Wall TM = new Wall(565, 0, 150, 40, rooms.get(4));
         Wall TR = new Wall(715, 0, 565, 40, null);
-        Wall BL = new Wall(0, 680, 565, 40, null);
-        Wall BM = new Wall(565, 680, 150, 40, rooms.get(0));
-        Wall BR = new Wall(715, 680, 565, 40, null);
+        Wall[] B = bottomEntry(rooms.get(0));
         Wall L = new Wall(0, 40, 10, 640, null);
         Wall R = new Wall(1270, 40, 10, 640, null);
 
-        return new Wall[] {TL, TM, TR, BL, BM, BR, L, R};
+        var walls = new Wall[] {
+                TL,
+                TM,
+                TR,
+                L,
+                R
+        };
+
+        return combine(walls, B);
     }
 
     private Wall[] createYellowCastleRoom() {
@@ -140,30 +158,82 @@ public class RoomBuilder {
 
                 // short vertical row
                 new Wall(470, 0, 60, 185, null),
-                new Wall(750, 0, 60, 185, null)
+                new Wall(750, 0, 60, 185, null),
 
-
-//                // tall vertical row
-//                new Wall(210, 40, 60, 430, null),
-//                new Wall(350, 0, 40, 470, null),
-//                new Wall(890, 0, 40, 470, null),
-//                new Wall(1010, 40, 60, 430, null),
-//
-//                // short vertical row
-//                new Wall(460, 0, 40, 205, null),
-//                new Wall(780, 0, 40, 205, null),
-
-                // other
-//                new Wall(300, 0, 50, 490, null),
-//                new Wall(930, 0, 50, 490, null),
-//                new Wall(400, 330, 480, 80, null),
-//                new Wall(1270, 610, 10, 0, null),
-
+                // paths
+                new Wall(0, 0, 10, 720, rooms.get(6)), // left side
+                new Wall(1270, 0, 10, 720, rooms.get(6)), // right side
+                new Wall(0, 0, 1280, 10, rooms.get(8)), // top side
         };
 
         var B = bottomEntry(rooms.get(1));
 
         return combine(walls, B);
+    }
+
+    private Wall[] createMazeHallway() {
+        var walls = new Wall[]{
+                new Wall(0, 450, 110, 120, null), // thick middle segment left side
+                new Wall(1170, 450, 110, 120, null), // thick middle segment right side
+                new Wall(0, 680, 270, 40, null), // bottom segment left side
+                new Wall(1010, 680, 270, 40, null), // bottom segment right side
+
+                new Wall(0, 185, 350, 120, null), // thick upper segment left side
+                new Wall(930, 185, 350, 120, null), // thick upper segment right side
+
+                new Wall(0, 0, 110, 40, null),
+                new Wall(370, 0, 100, 40, null),
+                new Wall(810, 0, 100, 40, null),
+                new Wall(1170, 0, 110, 40, null),
+
+                new Wall(210, 450, 60, 230, null), // bottom vertical segment left side
+                new Wall(1010, 450, 60, 230, null), // bottom vertical segment right side
+
+                new Wall(350, 185, 60, 720 - 185, null), // longer vertical left
+                new Wall(870, 185, 60, 720 - 185, null), // longer vertical right
+
+                new Wall(210, 0, 60, 185, null),
+                new Wall(1010, 0, 60, 185, null),
+
+                new Wall(470, 0, 60, 720, null), // longest vertical left
+                new Wall(750, 0, 60, 720, null), // longest vertical right
+
+                new Wall(530, 0, 60, 570, null),
+                new Wall(690, 0, 60, 570, null),
+
+                // paths
+                new Wall(0, 0, 10, 720, rooms.get(5)), // left side
+                new Wall(1270, 0, 10, 720, rooms.get(5)), // right side
+                new Wall(0, 0, 1280, 10, rooms.get(9)), // top side
+                new Wall(0, 710, 1280, 10, rooms.get(7)), // bottom side
+        };
+
+        return walls;
+    }
+
+    private Wall[] createMazeBigRoom() {
+        var walls = new Wall[] {
+                new Wall(0, 0, 1280, 10, rooms.get(6)),
+
+        };
+
+        return walls;
+    }
+
+    private Wall[] createMazeTop() {
+        var walls = new Wall[] {
+                new Wall(0, 710, 1280, 10, rooms.get(5)),
+        };
+
+        return walls;
+    }
+
+    private Wall[] createMazeExit() {
+        var walls = new Wall[] {
+                new Wall(0, 710, 1280, 10, rooms.get(6)),
+        };
+
+        return walls;
     }
 
     /*
