@@ -49,6 +49,7 @@ public class RoomBuilder {
 
         //
         Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
+        Room blackCastleEntry = new Room(null, Util.rgbToInt(0, 0, 0));
 
         rooms.add(0, start);
         rooms.add(1, leftHallway);
@@ -61,6 +62,7 @@ public class RoomBuilder {
         rooms.add(8, mazeTop);
         rooms.add(9, mazeExit);
         rooms.add(10, bottomRoom);
+        rooms.add(11, blackCastleEntry);
 
         start.updateWalls(createStartRoom());
         leftHallway.updateWalls(createLeftHallway());
@@ -102,7 +104,7 @@ public class RoomBuilder {
                 leftEntry(rooms.get(0)),
                 RIGHT
         };
-        return combine(walls, bottomEntry(rooms.get(6)));
+        return combine(walls, bottomEntry(rooms.get(10)));
     }
 
     private Wall[] createYellowCastleEntry() {
@@ -230,10 +232,43 @@ public class RoomBuilder {
 
     private Wall[] createMazeExit() {
         var walls = new Wall[] {
-                new Wall(0, 710, 1280, 10, rooms.get(6)),
+                // bottom row - horizontal
+                new Wall(0, 680, 110, 40, null),
+                new Wall(370, 680, 160, 40, null),
+                new Wall(750, 680, 160, 40, null),
+                new Wall(1170, 680, 110, 40, null),
+
+                // mid row - horizontal
+                new Wall(0, 415, 590, 120, null),
+                new Wall(690, 415, 590, 120, null),
+
+                // lower columns - vertical
+                new Wall(210, 535, 60, 720 - 535, null),
+                new Wall(530, 535, 60, 720 - 535, null),
+                new Wall(690, 535, 60, 720 - 535, null),
+                new Wall(1010, 535, 60, 720 - 535, null),
+
+                // upper columns
+                new Wall(0, 185, 110, 230, null),
+                new Wall(1170, 185, 110, 230, null),
+
+                new Wall(270, 40, 60, 415 - 40, null),
+                new Wall(950, 40, 60, 415 - 40, null),
+
+                new Wall(490, 40, 60, 230, null),
+                new Wall(550, 185, 40, 270 - 185, null),
+                new Wall(690, 185, 40, 270-185, null),
+                new Wall(730, 40, 60, 230, null),
+
+
+
+                // paths
+                new Wall(0, 0, 10, 720, rooms.get(7)), // left side
+                new Wall(1270, 0, 10, 720, rooms.get(8)), // right side
+                new Wall(0, 710, 1280, 10, rooms.get(6)), // bottom side
         };
 
-        return walls;
+        return combine(walls, topEntry(rooms.get(11)));
     }
 
     /*
@@ -246,17 +281,17 @@ public class RoomBuilder {
     }
 
     private Wall[] topEntry(Room room) {
-        Wall TL = new Wall(0, 0, 565, 40, null);
-        Wall TM = new Wall(565, 0, 150, 10, room);
-        Wall TR = new Wall(715, 0, 565, 40, null);
+        Wall TL = new Wall(0, 0, 550, 40, null);
+        Wall TM = new Wall(550, 0, 180, 10, room);
+        Wall TR = new Wall(730, 0, 550, 40, null);
 
         return new Wall[] {TL, TM, TR};
     }
 
     private Wall[] bottomEntry(Room room) {
-        Wall BL = new Wall(0, 680, 565, 40, null);
-        Wall BM = new Wall(565, 710, 150, 10, room);
-        Wall BR = new Wall(715, 680, 565, 40, null);
+        Wall BL = new Wall(0, 680, 550, 40, null);
+        Wall BM = new Wall(550, 710, 180, 10, room);
+        Wall BR = new Wall(730, 680, 550, 40, null);
 
         return new Wall[] {BL, BM, BR};
     }
