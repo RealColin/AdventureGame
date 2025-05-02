@@ -2,6 +2,7 @@ package game.map;
 
 import game.Main;
 import game.Util;
+import game.item.Chalice;
 import game.item.Key;
 import game.item.Sword;
 
@@ -91,6 +92,11 @@ public class RoomBuilder {
         sword.x = 150;
         sword.y = 600;
         yellowCastleRoom.items.add(sword);
+
+        Chalice chalice = new Chalice(Main.chaliceImg);
+        chalice.x = 150;
+        chalice.y = 600;
+        chaliceRoom.items.add(chalice);
     }
 
     /*

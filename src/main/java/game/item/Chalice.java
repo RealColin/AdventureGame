@@ -17,32 +17,33 @@ public class Chalice implements Item {
 
     @Override
     public void onDragonInteract(Dragon dragon) {
-
+        // Nothing gets done here
     }
 
     @Override
     public void onGateInteract(Gate gate) {
-
+        // Nothing gets done here
     }
 
     @Override
     public void onBroughtToCastle(Castle castle) {
-
+        // TODO game win!
     }
 
     @Override
     public void drop(Room room) {
-
+        room.items.add(this);
     }
 
     @Override
     public void pickup(Room room, int x, int y) {
-
+        room.items.remove(this);
     }
 
     @Override
-    public void move(int dx, int dy) {
-
+    public void move(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override

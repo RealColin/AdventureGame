@@ -1,7 +1,10 @@
 package game.entity;
 
+import game.Main;
+import game.item.Chalice;
 import game.item.Item;
 import game.item.Key;
+import game.map.Castle;
 import game.map.Direction;
 import game.map.Room;
 
@@ -88,6 +91,11 @@ public class Player {
                         case LEFT -> tx = 1225;
                         case RIGHT -> tx = 15;
                     }
+
+                    if (gate.castle == Castle.YELLOW && currentItem instanceof Chalice) {
+                        Main.WON = true;
+                    }
+
                 }  else {
                     switch (dir) {
                         case UP -> ty = gate.y + gate.height;
@@ -127,6 +135,9 @@ public class Player {
 
                 x = tx;
                 y = ty;
+
+
+
                 return;
             }
 

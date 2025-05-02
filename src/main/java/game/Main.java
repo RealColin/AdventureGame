@@ -8,6 +8,9 @@ import processing.core.PImage;
 import java.util.HashSet;
 
 public class Main extends PApplet {
+
+    public static boolean WON = false;
+
     private Player player;
     private Dragon greenDragon;
     private final HashSet<Character> keysPressed = new HashSet<>();
@@ -37,6 +40,7 @@ public class Main extends PApplet {
         swordImg = loadImage("sword.png");
         yellowKeyImg = loadImage("yellowKey.png");
         blackKeyImg = loadImage("blackKey.png");
+        chaliceImg = loadImage("chalice.png");
 
         RoomBuilder builder = new RoomBuilder();
         Room main = builder.getStartRoom();
@@ -48,6 +52,14 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
+        if (WON) {
+            fill(255, 0, 0);
+            textSize(64);
+            textAlign(CENTER, CENTER);
+            text("You win!", 640, 360);
+            return;
+        }
+
         handleInput();
 
         // then draw stuff
@@ -129,6 +141,7 @@ public class Main extends PApplet {
                 case 's' -> player.move(Direction.DOWN);
                 case 'd' -> player.move(Direction.RIGHT);
                 case 'c' -> System.out.println(player.x + " " + player.y);
+                case 'j' -> WON = true;
                 case ' ' -> player.dropItem();
             }
         }
