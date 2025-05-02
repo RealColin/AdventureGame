@@ -80,6 +80,11 @@ public class RoomBuilder {
         yellowKey.x = 100;
         yellowKey.y = 100;
         yellowCastleEntry.items.add(yellowKey);
+
+        Key blackKey = new Key(Main.blackKeyImg, Castle.BLACK);
+        blackKey.x = 200;
+        blackKey.y = 150;
+        bottomRoom.items.add(blackKey);
     }
 
     /*

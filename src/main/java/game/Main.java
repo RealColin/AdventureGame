@@ -36,7 +36,7 @@ public class Main extends PApplet {
         gateImg = loadImage("gate.png");
 //        swordImg = loadImage("sword.png");
         yellowKeyImg = loadImage("yellowKey.png");
-//        blackKeyImg = loadImage("blackKey.png");
+        blackKeyImg = loadImage("blackKey.png");
 
         RoomBuilder builder = new RoomBuilder();
         Room main = builder.getStartRoom();
@@ -129,7 +129,6 @@ public class Main extends PApplet {
                 case 's' -> player.move(Direction.DOWN);
                 case 'd' -> player.move(Direction.RIGHT);
                 case 'c' -> System.out.println(player.x + " " + player.y);
-                case 'j' -> player.currentRoom.gate.setOpen();
                 case ' ' -> player.dropItem();
             }
         }
