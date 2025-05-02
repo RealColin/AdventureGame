@@ -34,7 +34,7 @@ public class Main extends PApplet {
 
         // have to do this before RoomBuilder BECAUSE a Gate gets constructed in RoomBuilder and needs gate to be initialized
         gateImg = loadImage("gate.png");
-//        swordImg = loadImage("sword.png");
+        swordImg = loadImage("sword.png");
         yellowKeyImg = loadImage("yellowKey.png");
         blackKeyImg = loadImage("blackKey.png");
 

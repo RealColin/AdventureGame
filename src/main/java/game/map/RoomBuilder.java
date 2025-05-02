@@ -3,6 +3,7 @@ package game.map;
 import game.Main;
 import game.Util;
 import game.item.Key;
+import game.item.Sword;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,11 @@ public class RoomBuilder {
         blackKey.x = 200;
         blackKey.y = 150;
         bottomRoom.items.add(blackKey);
+
+        Sword sword = new Sword(Main.swordImg);
+        sword.x = 150;
+        sword.y = 600;
+        yellowCastleRoom.items.add(sword);
     }
 
     /*

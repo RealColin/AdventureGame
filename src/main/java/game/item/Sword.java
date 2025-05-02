@@ -8,15 +8,12 @@ import game.map.Room;
 import processing.core.PImage;
 
 public class Sword implements Item{
+    public int x;
+    public int y;
     public final PImage img;
 
     public Sword(PImage img) {
         this.img = img;
-    }
-
-    @Override
-    public void onPlayerInteract(Player player) {
-        // TODO pickup logic
     }
 
     @Override
@@ -36,22 +33,23 @@ public class Sword implements Item{
 
     @Override
     public void drop(Room room) {
-
+        room.items.add(this);
     }
 
     @Override
     public void pickup(Room room, int x, int y) {
-
+        room.items.remove(this);
     }
 
     @Override
     public void move(int x, int y) {
-
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public boolean isInside(int x, int y, int w, int h) {
-        return false;
+        return x < this.x + img.width && x + w > this.x && y < this.y + img.height && y + h > this.y;
     }
 
     @Override
@@ -61,11 +59,11 @@ public class Sword implements Item{
 
     @Override
     public int x() {
-        return 0;
+        return x;
     }
 
     @Override
     public int y() {
-        return 0;
+        return y;
     }
 }

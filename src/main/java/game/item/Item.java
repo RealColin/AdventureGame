@@ -8,7 +8,6 @@ import game.map.Room;
 import processing.core.PImage;
 
 public interface Item {
-    void onPlayerInteract(Player player);
     void onDragonInteract(Dragon dragon);
     void onGateInteract(Gate gate);
     void onBroughtToCastle(Castle castle);

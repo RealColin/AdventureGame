@@ -57,7 +57,8 @@ public class Player {
         if (old != null) {
             dropItem();
         }
-        if (_new != null) {
+
+        if (currentItem == null &&_new != null) {
             int ix = tx, iy = ty;
             switch (dir) {
                 case UP -> iy -= (_new.getImage().height + 5);
@@ -72,7 +73,6 @@ public class Player {
             _new.pickup(currentRoom, ix, iy);
             currentItem = _new;
         }
-
 
         if (currentRoom.gate != null) {
             var gate = currentRoom.gate;
@@ -148,6 +148,12 @@ public class Player {
 
     public void dropItem() {
         if (currentItem != null) {
+
+            for (var wall : currentRoom.walls()) {
+                if (wall.isInside(currentItem.x(), currentItem.y(), currentItem.getImage().width, currentItem.getImage().height))
+                    return;
+            }
+
             currentItem.drop(currentRoom);
             this.currentItem = null;
         }
