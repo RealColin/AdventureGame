@@ -31,6 +31,31 @@ public class Player {
             case DOWN -> ty += speed;
         }
 
+        if (currentRoom.gate != null) {
+            var gate = currentRoom.gate;
+
+            boolean col = gate.isInside(tx, ty, size, size);
+
+            if (col) {
+                if (gate.isOpen) {
+                    this.currentRoom = gate.room;
+                    switch (dir) {
+                        case UP -> ty = 665;
+                        case DOWN -> ty = 15;
+                        case LEFT -> tx = 1225;
+                        case RIGHT -> tx = 15;
+                    }
+                }  else {
+                    switch (dir) {
+                        case UP -> ty = gate.y + gate.height;
+                        case DOWN -> ty = gate.y - size;
+                        case LEFT -> tx = gate.y + gate.width;
+                        case RIGHT -> tx = gate.y - size;
+                    }
+                }
+            }
+        }
+
         for (var wall : currentRoom.walls()) {
             boolean col = wall.isInside(tx, ty, size, size);
 

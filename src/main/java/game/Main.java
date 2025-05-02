@@ -44,6 +44,11 @@ public class Main extends PApplet {
 
         // then draw stuff
         background(170, 170, 170);
+
+        // draw items before room
+
+
+        // draw room
         drawRoom();
 
         // player and player hitbox
@@ -98,6 +103,7 @@ public class Main extends PApplet {
                 case 's' -> player.move(Direction.DOWN);
                 case 'd' -> player.move(Direction.RIGHT);
                 case 'c' -> System.out.println(player.x + " " + player.y);
+                case 'j' -> player.currentRoom.gate.setOpen();
             }
         }
     }
