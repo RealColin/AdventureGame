@@ -214,9 +214,43 @@ public class RoomBuilder {
     }
 
     private Wall[] createMazeBigRoom() {
+        int temp_height = 185;
         var walls = new Wall[] {
-                new Wall(0, 0, 1280, 10, rooms.get(6)),
+                BOTTOM,
 
+                // top horizontals
+                new Wall(0, 0, 210, 40, null),
+                new Wall(350, 0, 60, 40, null),
+                new Wall(870, 0, 60, 40, null),
+                new Wall(1070, 0, 210, 40, null),
+
+                // mid horizontals
+                new Wall(210, 185, 530 - 210, 120, null),
+                new Wall(750, 185, 1070 - 750, 120, null),
+
+                // bottom horizontals
+                new Wall(0, 680 - (145 + 120), 270, 120, null),
+                new Wall(1010, 680 - (145 + 120), 270, 120, null),
+
+                // top verticals
+                new Wall(470, 0, 60, temp_height, null),
+                new Wall(750, 0, 60, temp_height, null),
+                new Wall(210, 0, 60, temp_height, null),
+                new Wall(1010, 0, 60, temp_height, null),
+
+                // left and right chunk verticals
+                new Wall(0, 185, 110, 230, null),
+                new Wall(1170, 185, 110, 230, null),
+
+                // bottom verticals
+                new Wall(210, 680 - 145, 60, 145, null),
+                new Wall(1010, 680 - 145, 60, 145, null),
+
+
+                // paths
+                new Wall(0, 0, 1280, 10, rooms.get(6)),
+                new Wall(0, 0, 10, 720, rooms.get(8)),
+                new Wall(1270, 0, 10, 720, rooms.get(9)),
         };
 
         return walls;
@@ -224,7 +258,40 @@ public class RoomBuilder {
 
     private Wall[] createMazeTop() {
         var walls = new Wall[] {
+                TOP,
+
+                // bottom horizontal
+                new Wall(0, 680, 210, 40, null),
+                new Wall(1070, 680, 210, 40, null),
+
+                // middle horizontal
+                new Wall(210, (680 - 145) - 120, 530 - 210, 120, null),
+                new Wall(750, (680 - 145) - 120, 320, 120, null),
+
+                // top horizontal
+                new Wall(0, 185, 350, 120, null),
+                new Wall(410, 185, 870 - 410, 120, null),
+                new Wall(930, 185, 350, 120, null),
+
+                // bottom vertical
+                new Wall(210, 680 - 145, 60, 185, null),
+                new Wall(350, 680, 60, 40, null),
+                new Wall(470, 680 - 145, 60, 185, null),
+                new Wall(750, 680 - 145, 60, 185, null),
+                new Wall(870, 680, 60, 40, null),
+                new Wall(1010, 680 - 145, 60, 185, null),
+
+                // middle vertical
+                new Wall(590, 305, 100, 720 - 305, null),
+
+                // side verticals
+                new Wall(0, 305, 110, 680 - 145 - 305, null),
+                new Wall(1170, 305, 110, 680 - 145 - 305, null),
+
+                //paths
                 new Wall(0, 710, 1280, 10, rooms.get(5)),
+                new Wall(0, 0, 10, 720, rooms.get(9)),
+                new Wall(1270, 0, 10, 720, rooms.get(7)),
         };
 
         return walls;
