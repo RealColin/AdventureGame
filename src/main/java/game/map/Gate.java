@@ -6,18 +6,19 @@ import processing.core.PImage;
 public class Gate {
     public final Room room;
     public boolean isOpen;
+    public boolean startOpening;
 
     public final int x = 575;
-    public final int y = 410;
+    public int y;
     public final int width = 130;
-    public int height;
+    public final int height = 150;
     public PImage img;
 
     public Gate(Room room) {
         this.room = room;
         this.isOpen = false;
-        this.height = 150;
-        this.img = Main.gate;
+        this.y = 410;
+        this.img = Main.gateImg;
     }
 
     public boolean isInside(int x, int y, int w, int h) {
@@ -25,8 +26,7 @@ public class Gate {
     }
 
     public void setOpen() {
-        this.height = 20;
-        isOpen = true;
+        startOpening = true;
     }
 
     public void onContact() {

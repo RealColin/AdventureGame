@@ -12,7 +12,7 @@ public class Main extends PApplet {
     private Dragon greenDragon;
     private final HashSet<Character> keysPressed = new HashSet<>();
     private final int TRANSPARENT = color(255, 255, 255, 0);
-    public static PImage gate;
+    public static PImage gateImg;
 
     public static void main(String[] args) {
         PApplet.main(Main.class);
@@ -28,7 +28,7 @@ public class Main extends PApplet {
         windowResizable(true);
 
         // have to do this before RoomBuilder BECAUSE a Gate gets constructed in RoomBuilder and needs gate to be initialized
-        gate = loadImage("gate.png");
+        gateImg = loadImage("gate.png");
 
         RoomBuilder builder = new RoomBuilder();
         Room main = builder.getStartRoom();
@@ -65,6 +65,20 @@ public class Main extends PApplet {
     private void drawRoom() {
         var room = player.currentRoom;
 
+        if (room.gate != null) {
+            var gate = room.gate;
+
+            if (gate.startOpening) {
+                gate.y -= 1;
+                if (gate.y <= 300) {
+                    gate.isOpen = true;
+                    gate.startOpening = false;
+                }
+            }
+
+            image(gateImg, gate.x, gate.y);
+        }
+
         for (var wall : room.walls()) {
             if (wall.nextRoom() != null)
                 continue; // don't draw the wall if it's actually a path
@@ -72,10 +86,6 @@ public class Main extends PApplet {
             fill(room.color);
             noStroke();
             rect(wall.xPos(), wall.yPos(), wall.width(), wall.height());
-        }
-
-        if (room.gate != null) {
-            image(gate, room.gate.x, room.gate.y);
         }
     }
 

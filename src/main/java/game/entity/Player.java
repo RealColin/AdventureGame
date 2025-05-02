@@ -64,12 +64,21 @@ public class Player {
 
             if (wall.nextRoom() != null) {
                 this.currentRoom = wall.nextRoom();
+
+
+
                 switch (dir) {
                     case UP -> ty = 665;
                     case DOWN -> ty = 15;
                     case LEFT -> tx = 1225;
                     case RIGHT -> tx = 15;
                 }
+
+                if (currentRoom.gate != null && ty == 15) {
+                    tx = 620;
+                    ty = 470;
+                }
+
                 x = tx;
                 y = ty;
                 return;
