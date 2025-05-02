@@ -68,6 +68,10 @@ public class Main extends PApplet {
             noStroke();
             rect(wall.xPos(), wall.yPos(), wall.width(), wall.height());
         }
+
+        if (room.gate != null) {
+            image(gate, room.gate.x, room.gate.y);
+        }
     }
 
     private void drawPlayer() {

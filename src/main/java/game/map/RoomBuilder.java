@@ -50,6 +50,7 @@ public class RoomBuilder {
         //
         Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
         Room blackCastleEntry = new Room(null, Util.rgbToInt(0, 0, 0));
+        Room blackCastleRoom = new Room(null, Util.rgbToInt(0, 0, 0)); // TODO change this to orange
 
         rooms.add(0, start);
         rooms.add(1, leftHallway);
@@ -74,6 +75,10 @@ public class RoomBuilder {
         mazeBigRoom.updateWalls(createMazeBigRoom());
         mazeTop.updateWalls(createMazeTop());
         mazeExit.updateWalls(createMazeExit());
+        blackCastleEntry.updateWalls(createBlackCastleEntry());
+
+        yellowCastleEntry.gate = new Gate(yellowCastleRoom);
+        blackCastleEntry.gate = new Gate(blackCastleRoom);
     }
 
     /*
@@ -108,22 +113,31 @@ public class RoomBuilder {
     }
 
     private Wall[] createYellowCastleEntry() {
-        Wall TL = new Wall(0, 0, 565, 40, null);
-        Wall TM = new Wall(565, 0, 150, 40, rooms.get(4));
-        Wall TR = new Wall(715, 0, 565, 40, null);
+//        Wall TL = new Wall(0, 0, 565, 40, null);
+//        Wall TM = new Wall(565, 0, 150, 40, rooms.get(4));
+//        Wall TR = new Wall(715, 0, 565, 40, null);
         Wall[] B = bottomEntry(rooms.get(0));
-        Wall L = new Wall(0, 40, 10, 640, null);
-        Wall R = new Wall(1270, 40, 10, 640, null);
+
 
         var walls = new Wall[] {
-                TL,
-                TM,
-                TR,
-                L,
-                R
+                LEFT,
+                RIGHT,
         };
 
-        return combine(walls, B);
+        var walls2 = combine(walls, B);
+
+        return combine(walls2, createCastle());
+    }
+
+    private Wall[] createBlackCastleEntry() {
+        var walls = new Wall[] {
+                LEFT,
+                RIGHT,
+        };
+
+        var walls2 = combine(walls, bottomEntry(rooms.get(9)));
+
+        return combine(walls2, createCastle());
     }
 
     private Wall[] createYellowCastleRoom() {
@@ -344,7 +358,39 @@ public class RoomBuilder {
 
     private Wall[] createCastle() {
 
-        return new Wall[] {};
+        var walls = new Wall[]{
+                // top row
+                new Wall(0, 0, 365, 40, null),
+                new Wall(405, 0, 40, 40, null),
+                new Wall(485, 0, 40, 40, null),
+
+                new Wall(755, 0, 40, 40, null),
+                new Wall(835, 0, 40, 40, null),
+
+
+                new Wall(1280-365, 0, 365, 40, null),
+
+                // left tower
+                new Wall(325, 40, 200, 250, null),
+
+                // right tower
+                new Wall(755, 40, 200, 250, null),
+
+                // middle
+                new Wall(515, 190, 250, 220, null),
+
+                // left bottom
+                new Wall(375, 290, 200, 270, null),
+
+                // right bottom
+                new Wall(705, 290, 200, 270, null),
+        };
+
+
+
+
+
+        return walls;
     }
 
     private Wall[] topEntry(Room room) {

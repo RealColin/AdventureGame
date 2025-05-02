@@ -3,6 +3,7 @@ package game.map;
 public class Room {
     private Wall[] walls;
     public final int color;
+    public Gate gate;
 
     public Room(Wall[] walls, int color) {
         this.walls = walls;
