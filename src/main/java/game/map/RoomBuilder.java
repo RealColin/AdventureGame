@@ -36,10 +36,10 @@ public class RoomBuilder {
         Room mazeExit = new Room(null, Util.rgbToInt(0, 0, 255));
 
         //
-        Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
+        Room bottomRoom = new Room(null, Util.rgbToInt(225, 110, 0));
         Room blackCastleEntry = new Room(null, Util.rgbToInt(0, 0, 0));
-        Room blackCastleRoom = new Room(null, Util.rgbToInt(0, 0, 0)); // TODO change this to orange
-        Room chaliceRoom = new Room(null, Util.rgbToInt(0, 0, 0)); // TODO change this to purple
+        Room blackCastleRoom = new Room(null, Util.rgbToInt(225, 110, 0));
+        Room chaliceRoom = new Room(null, Util.rgbToInt(153, 50, 204));
 
         rooms.add(0, start);
         rooms.add(1, leftHallway);
