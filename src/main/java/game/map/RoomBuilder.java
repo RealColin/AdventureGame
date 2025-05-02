@@ -21,18 +21,6 @@ public class RoomBuilder {
         return rooms.getFirst();
     }
 
-    private void createLevelOneRooms() {
-        // TODO implement this
-    }
-
-    private void createLevelTwoRooms() {
-        // TODO implement this
-    }
-
-    private void createLevelThreeRooms() {
-        // TODO implement this
-    }
-
     private void createRooms() {
         Room start = new Room(null, Util.rgbToInt(0, 255, 0));
         Room leftHallway = new Room(null, Util.rgbToInt(100, 255, 0));
@@ -51,6 +39,7 @@ public class RoomBuilder {
         Room bottomRoom = new Room(null, Util.rgbToInt(0, 255, 200));
         Room blackCastleEntry = new Room(null, Util.rgbToInt(0, 0, 0));
         Room blackCastleRoom = new Room(null, Util.rgbToInt(0, 0, 0)); // TODO change this to orange
+        Room chaliceRoom = new Room(null, Util.rgbToInt(0, 0, 0)); // TODO change this to purple
 
         rooms.add(0, start);
         rooms.add(1, leftHallway);
@@ -64,6 +53,8 @@ public class RoomBuilder {
         rooms.add(9, mazeExit);
         rooms.add(10, bottomRoom);
         rooms.add(11, blackCastleEntry);
+        rooms.add(12, blackCastleRoom);
+        rooms.add(13, chaliceRoom);
 
         start.updateWalls(createStartRoom());
         leftHallway.updateWalls(createLeftHallway());
@@ -75,7 +66,10 @@ public class RoomBuilder {
         mazeBigRoom.updateWalls(createMazeBigRoom());
         mazeTop.updateWalls(createMazeTop());
         mazeExit.updateWalls(createMazeExit());
+        bottomRoom.updateWalls(createBottomRoom());
         blackCastleEntry.updateWalls(createBlackCastleEntry());
+        blackCastleRoom.updateWalls(createBlackCastleRoom());
+        chaliceRoom.updateWalls(createChaliceRoom());
 
         yellowCastleEntry.gate = new Gate(yellowCastleRoom);
         blackCastleEntry.gate = new Gate(blackCastleRoom);
@@ -106,18 +100,14 @@ public class RoomBuilder {
     private Wall[] createRightHallway() {
         var walls = new Wall[] {
                 TOP,
-                leftEntry(rooms.get(0)),
+                leftEntry(rooms.getFirst()),
                 RIGHT
         };
         return combine(walls, bottomEntry(rooms.get(10)));
     }
 
     private Wall[] createYellowCastleEntry() {
-//        Wall TL = new Wall(0, 0, 565, 40, null);
-//        Wall TM = new Wall(565, 0, 150, 40, rooms.get(4));
-//        Wall TR = new Wall(715, 0, 565, 40, null);
-        Wall[] B = bottomEntry(rooms.get(0));
-
+        Wall[] B = bottomEntry(rooms.getFirst());
 
         var walls = new Wall[] {
                 LEFT,
@@ -147,6 +137,19 @@ public class RoomBuilder {
                 TOP
         };
         return combine(walls, bottomEntry(rooms.get(3)));
+    }
+
+    private Wall[] createBlackCastleRoom() {
+        var walls = combine(new Wall[]{LEFT, RIGHT}, topEntry(rooms.get(13)));
+        return combine(walls, bottomEntry(rooms.get(11)));
+    }
+
+    private Wall[] createChaliceRoom() {
+        return combine(new Wall[]{LEFT, RIGHT, TOP}, bottomEntry(rooms.get(12)));
+    }
+
+    private Wall[] createBottomRoom() {
+        return combine(new Wall[]{LEFT, RIGHT, BOTTOM}, topEntry(rooms.get(2)));
     }
 
     private Wall[] createMazeEntry() {
@@ -188,7 +191,7 @@ public class RoomBuilder {
     }
 
     private Wall[] createMazeHallway() {
-        var walls = new Wall[]{
+        return new Wall[] {
                 new Wall(0, 450, 110, 120, null), // thick middle segment left side
                 new Wall(1170, 450, 110, 120, null), // thick middle segment right side
                 new Wall(0, 680, 270, 40, null), // bottom segment left side
@@ -223,13 +226,10 @@ public class RoomBuilder {
                 new Wall(0, 0, 1280, 10, rooms.get(9)), // top side
                 new Wall(0, 710, 1280, 10, rooms.get(7)), // bottom side
         };
-
-        return walls;
     }
 
     private Wall[] createMazeBigRoom() {
-        int temp_height = 185;
-        var walls = new Wall[] {
+        return new Wall[] {
                 BOTTOM,
 
                 // top horizontals
@@ -247,10 +247,10 @@ public class RoomBuilder {
                 new Wall(1010, 680 - (145 + 120), 270, 120, null),
 
                 // top verticals
-                new Wall(470, 0, 60, temp_height, null),
-                new Wall(750, 0, 60, temp_height, null),
-                new Wall(210, 0, 60, temp_height, null),
-                new Wall(1010, 0, 60, temp_height, null),
+                new Wall(470, 0, 60, 185, null),
+                new Wall(750, 0, 60, 185, null),
+                new Wall(210, 0, 60, 185, null),
+                new Wall(1010, 0, 60, 185, null),
 
                 // left and right chunk verticals
                 new Wall(0, 185, 110, 230, null),
@@ -260,18 +260,15 @@ public class RoomBuilder {
                 new Wall(210, 680 - 145, 60, 145, null),
                 new Wall(1010, 680 - 145, 60, 145, null),
 
-
                 // paths
                 new Wall(0, 0, 1280, 10, rooms.get(6)),
                 new Wall(0, 0, 10, 720, rooms.get(8)),
                 new Wall(1270, 0, 10, 720, rooms.get(9)),
         };
-
-        return walls;
     }
 
     private Wall[] createMazeTop() {
-        var walls = new Wall[] {
+        return new Wall[] {
                 TOP,
 
                 // bottom horizontal
@@ -307,8 +304,6 @@ public class RoomBuilder {
                 new Wall(0, 0, 10, 720, rooms.get(9)),
                 new Wall(1270, 0, 10, 720, rooms.get(7)),
         };
-
-        return walls;
     }
 
     private Wall[] createMazeExit() {
@@ -357,8 +352,7 @@ public class RoomBuilder {
      */
 
     private Wall[] createCastle() {
-
-        var walls = new Wall[]{
+        return new Wall[]{
                 // top row
                 new Wall(0, 0, 365, 40, null),
                 new Wall(405, 0, 40, 40, null),
@@ -385,12 +379,6 @@ public class RoomBuilder {
                 // right bottom
                 new Wall(705, 290, 200, 270, null),
         };
-
-
-
-
-
-        return walls;
     }
 
     private Wall[] topEntry(Room room) {
