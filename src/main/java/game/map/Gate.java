@@ -13,12 +13,14 @@ public class Gate {
     public final int width = 130;
     public final int height = 150;
     public PImage img;
+    public Castle castle;
 
-    public Gate(Room room) {
+    public Gate(Room room, Castle castle) {
         this.room = room;
         this.isOpen = false;
         this.y = 410;
         this.img = Main.gateImg;
+        this.castle = castle;
     }
 
     public boolean isInside(int x, int y, int w, int h) {

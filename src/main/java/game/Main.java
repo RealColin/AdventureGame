@@ -12,7 +12,12 @@ public class Main extends PApplet {
     private Dragon greenDragon;
     private final HashSet<Character> keysPressed = new HashSet<>();
     private final int TRANSPARENT = color(255, 255, 255, 0);
+
     public static PImage gateImg;
+    public static PImage swordImg;
+    public static PImage yellowKeyImg;
+    public static PImage blackKeyImg;
+    public static PImage chaliceImg;
 
     public static void main(String[] args) {
         PApplet.main(Main.class);
@@ -29,6 +34,9 @@ public class Main extends PApplet {
 
         // have to do this before RoomBuilder BECAUSE a Gate gets constructed in RoomBuilder and needs gate to be initialized
         gateImg = loadImage("gate.png");
+//        swordImg = loadImage("sword.png");
+        yellowKeyImg = loadImage("yellowKey.png");
+//        blackKeyImg = loadImage("blackKey.png");
 
         RoomBuilder builder = new RoomBuilder();
         Room main = builder.getStartRoom();
@@ -87,12 +95,20 @@ public class Main extends PApplet {
             noStroke();
             rect(wall.xPos(), wall.yPos(), wall.width(), wall.height());
         }
+
+        for (var item : room.items) {
+            image(item.getImage(), item.x(), item.y());
+        }
     }
 
     private void drawPlayer() {
         fill(player.color);
         noStroke();
         rect(player.x, player.y, 40, 40);
+
+        if (player.currentItem != null) {
+            image(player.currentItem.getImage(), player.currentItem.x(), player.currentItem.y());
+        }
     }
 
     @Override
@@ -114,6 +130,7 @@ public class Main extends PApplet {
                 case 'd' -> player.move(Direction.RIGHT);
                 case 'c' -> System.out.println(player.x + " " + player.y);
                 case 'j' -> player.currentRoom.gate.setOpen();
+                case ' ' -> player.dropItem();
             }
         }
     }

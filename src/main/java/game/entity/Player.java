@@ -1,5 +1,7 @@
 package game.entity;
 
+import game.item.Item;
+import game.item.Key;
 import game.map.Direction;
 import game.map.Room;
 
@@ -10,6 +12,9 @@ public class Player {
     public int speed;
     public int color;
     public Room currentRoom;
+    public Item currentItem;
+    public int ox;
+    public int oy;
 
     public Player(int x, int y, int size, int speed, int color, Room currentRoom) {
         this.x = x;
@@ -30,6 +35,44 @@ public class Player {
             case RIGHT -> tx += speed;
             case DOWN -> ty += speed;
         }
+        
+        Item old = null;
+        Item _new = null;
+
+        if (!currentRoom.items.isEmpty()) {
+            for (var item : currentRoom.items) {
+                boolean col = item.isInside(tx, ty, size, size);
+
+                if (col) {
+                    if (currentItem != null) {
+                        old = currentItem;
+                    }
+
+                    _new = item;
+                    break;
+                }
+            }
+        }
+
+        if (old != null) {
+            dropItem();
+        }
+        if (_new != null) {
+            int ix = tx, iy = ty;
+            switch (dir) {
+                case UP -> iy -= (_new.getImage().height + 5);
+                case LEFT -> ix -= (_new.getImage().width + 5);
+                case RIGHT -> ix += (size + 5);
+                case DOWN -> iy += (size + 5);
+            }
+
+            ox = x - ix;
+            oy = y - iy;
+
+            _new.pickup(currentRoom, ix, iy);
+            currentItem = _new;
+        }
+
 
         if (currentRoom.gate != null) {
             var gate = currentRoom.gate;
@@ -52,6 +95,9 @@ public class Player {
                         case LEFT -> tx = gate.y + gate.width;
                         case RIGHT -> tx = gate.y - size;
                     }
+
+                    if (currentItem != null && currentItem instanceof Key key)
+                        key.onGateInteract(gate);
                 }
             }
         }
@@ -94,5 +140,16 @@ public class Player {
 
         x = tx;
         y = ty;
+
+        if (currentItem != null) {
+            currentItem.move(x - ox, y - oy);
+        }
+    }
+
+    public void dropItem() {
+        if (currentItem != null) {
+            currentItem.drop(currentRoom);
+            this.currentItem = null;
+        }
     }
 }

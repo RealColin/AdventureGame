@@ -1,13 +1,19 @@
 package game.map;
 
+import game.item.Item;
+
+import java.util.ArrayList;
+
 public class Room {
     private Wall[] walls;
+    public ArrayList<Item> items;
     public final int color;
     public Gate gate;
 
     public Room(Wall[] walls, int color) {
         this.walls = walls;
         this.color = color;
+        items = new ArrayList<>();
     }
 
     public void updateWalls(Wall[] walls) {

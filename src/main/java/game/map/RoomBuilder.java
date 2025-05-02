@@ -1,6 +1,8 @@
 package game.map;
 
+import game.Main;
 import game.Util;
+import game.item.Key;
 
 import java.util.ArrayList;
 
@@ -71,8 +73,13 @@ public class RoomBuilder {
         blackCastleRoom.updateWalls(createBlackCastleRoom());
         chaliceRoom.updateWalls(createChaliceRoom());
 
-        yellowCastleEntry.gate = new Gate(yellowCastleRoom);
-        blackCastleEntry.gate = new Gate(blackCastleRoom);
+        yellowCastleEntry.gate = new Gate(yellowCastleRoom, Castle.YELLOW);
+        blackCastleEntry.gate = new Gate(blackCastleRoom, Castle.BLACK);
+
+        Key yellowKey = new Key(Main.yellowKeyImg, Castle.YELLOW);
+        yellowKey.x = 100;
+        yellowKey.y = 100;
+        yellowCastleEntry.items.add(yellowKey);
     }
 
     /*
