@@ -2,6 +2,7 @@ package game.map;
 
 import game.Main;
 import game.Util;
+import game.entity.Dragon;
 import game.item.Chalice;
 import game.item.Key;
 import game.item.Sword;
@@ -23,6 +24,10 @@ public class RoomBuilder {
 
     public Room getStartRoom() {
         return rooms.getFirst();
+    }
+
+    public void putDragon(Dragon dragon, int roomNumber) {
+        dragon.currentRoom = rooms.get(roomNumber);
     }
 
     private void createRooms() {
@@ -74,6 +79,8 @@ public class RoomBuilder {
         blackCastleEntry.updateWalls(createBlackCastleEntry());
         blackCastleRoom.updateWalls(createBlackCastleRoom());
         chaliceRoom.updateWalls(createChaliceRoom());
+
+        yellowCastleRoom.castle = true;
 
         yellowCastleEntry.gate = new Gate(yellowCastleRoom, Castle.YELLOW);
         blackCastleEntry.gate = new Gate(blackCastleRoom, Castle.BLACK);

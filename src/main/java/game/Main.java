@@ -10,9 +10,11 @@ import java.util.HashSet;
 public class Main extends PApplet {
 
     public static boolean WON = false;
+    public static boolean LOST = false;
 
     private Player player;
     private Dragon greenDragon;
+    private Dragon yellowDragon;
     private final HashSet<Character> keysPressed = new HashSet<>();
     private final int TRANSPARENT = color(255, 255, 255, 0);
 
@@ -46,8 +48,11 @@ public class Main extends PApplet {
         Room main = builder.getStartRoom();
 
         player = new Player(50, 50, 40, 7, color(255, 255, 0), main);
-        greenDragon = new Dragon(700, 300, loadImage("green_dragon.png"));
+        greenDragon = new Dragon(700, 500, 5, 3, loadImage("green_dragon.png"), loadImage("green_dragon_dead.png"), player);
+        yellowDragon = new Dragon(300, 500, 3, 2, loadImage("yellow_dragon.png"), loadImage("yellow_dragon_dead.png"), player);
 
+        builder.putDragon(greenDragon, 10);
+        builder.putDragon(yellowDragon, 1);
     }
 
     @Override
@@ -60,7 +65,17 @@ public class Main extends PApplet {
             return;
         }
 
+        if (LOST) {
+            fill(255, 0, 0);
+            textSize(64);
+            textAlign(CENTER, CENTER);
+            text("You died.", 640, 360);
+            return;
+        }
+
         handleInput();
+        greenDragon.tick();
+        yellowDragon.tick();
 
         // then draw stuff
         background(170, 170, 170);
@@ -74,12 +89,26 @@ public class Main extends PApplet {
         // player and player hitbox
         drawPlayer();
 
+        drawDragon(greenDragon);
+        drawDragon(yellowDragon);
+
         // dragon and dragon hitbox
 //        image(greenDragon.img, greenDragon.x, greenDragon.y, greenDragon.img.width * 0.35f, greenDragon.img.height * 0.35f);
 //        stroke(255, 255, 255);
 //        strokeWeight(2);
 //        noFill();
 //        rect(greenDragon.x, greenDragon.y, greenDragon.hitboxWidth, greenDragon.hitboxHeight);
+    }
+
+    private void drawDragon(Dragon dragon) {
+        if (player.currentRoom == dragon.currentRoom) {
+            if (dragon.isAlive) {
+                image(dragon.img, dragon.x, dragon.y, dragon.img.width * 0.35f, dragon.img.height * 0.35f);
+            } else {
+                image(dragon.dead, dragon.x, dragon.y, dragon.dead.width * 0.35f, dragon.dead.height * 0.35f);
+            }
+
+        }
     }
 
     private void drawRoom() {

@@ -18,7 +18,7 @@ public class Sword implements Item{
 
     @Override
     public void onDragonInteract(Dragon dragon) {
-        // TODO logic for killing dragon
+        dragon.kill();
     }
 
     @Override

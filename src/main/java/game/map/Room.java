@@ -9,6 +9,7 @@ public class Room {
     public ArrayList<Item> items;
     public final int color;
     public Gate gate;
+    public boolean castle = false;
 
     public Room(Wall[] walls, int color) {
         this.walls = walls;
