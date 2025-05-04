@@ -48,7 +48,7 @@ public class Main extends PApplet {
         Room main = builder.getStartRoom();
 
         player = new Player(50, 50, 40, 7, color(255, 255, 0), main);
-        greenDragon = new Dragon(700, 500, 5, 3, loadImage("green_dragon.png"), loadImage("green_dragon_dead.png"), player);
+        greenDragon = new Dragon(700, 500, 4, 3, loadImage("green_dragon.png"), loadImage("green_dragon_dead.png"), player);
         yellowDragon = new Dragon(300, 500, 3, 2, loadImage("yellow_dragon.png"), loadImage("yellow_dragon_dead.png"), player);
 
         builder.putDragon(greenDragon, 10);
